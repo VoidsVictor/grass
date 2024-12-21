@@ -2,7 +2,10 @@
     Generates the loan parameters and other related insights.
 """
 import pandas as pd
+import numpy as np
 import pickle
+
+from scipy.stats import norm
 
 def load_model(path):
     with open(path, 'rb') as file:
@@ -23,9 +26,42 @@ def specific_net_income(annual_income, monthly_expenses, loan_tenure):
 def lgd(df, model):
     return model.predict(df)
 
+def df_merton(path):
+    data = pd.read_csv(path)
+
+    # Preprocess numeric columns
+    data["WITHDRAWAL_AMT"] = data["WITHDRAWAL_AMT"].fillna(0)
+    data["DEPOSIT_AMT"] = data["DEPOSIT_AMT"].fillna(0)
+
+    # Calculate net cash flow
+    data["NET CASH FLOW"] = data["DEPOSIT_AMT"] - data["WITHDRAWAL_AMT"]
+
+    # Calculate cumulative asset value (starting with an initial value, e.g., 10,000,000)
+    data["ASSET VALUE"] = data["NET CASH FLOW"].cumsum()
+
+    # Calculate daily growth rates
+    data["GROWTH RATE"] = np.log(data["ASSET VALUE"] / data["ASSET VALUE"].shift(1))
+    
+    # Drop NaN values caused by shift
+    data = data.dropna(subset=["GROWTH RATE"])
+
+    return df_merton
+
+def merton_params(df):
+    volatility = df["GROWTH RATE"].std()
+    growth_rate = df["GROWTH RATE"].mean()
+
+    return volatility, growth_rate
+
+def pd_merton(volatility, growth_rate, tenure, net_worth, debt_point):
+    # Tenure should be in age
+    d2 = (np.log(net_worth / debt_point) + (growth_rate - (volatility**2) / 2) * tenure) / (volatility * np.sqrt(tenure))
+    return norm.cdf(-d2)
+
 if __name__ == '__main__':
     age = int(input("Enter borrower age: "))
     gender = input("Enter gender (F/M/TG): ")
+    asset_val = float(input("Enter net worth: "))
     annual_income = float(input("Enter annual income: "))
     monthly_expenses = float(input("Enter monthly expenses: "))
     old_dependents = int(input("Number of old people dependent on borrower: "))
