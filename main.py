@@ -78,7 +78,7 @@ def display_loan_analysis(metrics: Dict[str, Any]):
     print("\n=== Loan Analysis Results ===")
     print(f"Credit Score: {metrics['credit_score']:.2f}")
     print(f"Annual Interest Rate: {metrics['interest_rate']*100:.2f}%")
-    print(f"Monthly Payment: ${metrics['monthly_payment']:.2f}")
+    print(f"Monthly Payment: {metrics['monthly_payment']:.2f}")
     print(f"Risk Metrics:")
     print(f"  - Loss Given Default: {metrics['lgd']*100:.2f}%")
     print(f"  - Probability of Default: {metrics['probability_of_default']*100:.2f}%")
@@ -102,7 +102,7 @@ def optimize_existing_loan(borrower: Dict[str, Any], current_loan: Dict[str, Any
     
     print("\nOptimized Loan Terms:")
     print(f"Recommended Tenure: {result['optimized_tenure_years']:.1f} years")
-    print(f"Monthly Installment: ${result['monthly_installment']:.2f}")
+    print(f"Monthly Installment: {result['monthly_installment']:.2f}")
     print(f"Interest Rate: {result['interest_rate']*100:.2f}%")
     print(f"Loan-to-Income Ratio: {result['loan_to_income_ratio']:.2f}")
 

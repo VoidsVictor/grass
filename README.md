@@ -1,65 +1,101 @@
-# Plan of Action
+# Grass - Holistic Creditworthiness Evaluation System
 
-## Calculating the Loss Given Default (LGD)
+> **Note:** This is an ongoing project. In its current stage, it is highly experimental and unstable. It should not be used in production environments. Open sourced components used in this project are governed by their respective licenses.
 
-- From the Dataset,
-	- Normalise and standardise the dataset
-	- Split the data into training (with validation set as well) and testing
-	- Calculate Loan To Income (LTI) = (Loan Amt)/(Annual Income)
-	- Calculate Loan Servicing Ration (LSR) = (Montly Installment)/(Monthly Expense)
-	- Heuristically calculate proxy_LGD:
-		- Calculate Net Annual Income = Income * (12*monthly_expence)
-		- Calculate Total Payable for Loan = Loan_installments * Loan_term
-		- Calculate LGD = (Total_loan - Net_income)/Net_income
-	- Calculate correlations and other statistics
-	- Drop irrelevant tables
-- Find and train model with optimised parameters
-- Save the model
-- Write the Python program that uses this model to predict LGD and calculates Adjusted LGD by equating Collateral LGD (CLGD) and Estimated LGD (ELGD)
-	- Adjusted LGD = a * CLGD + (1 - a) * ELGD
-	- a = (collateral_value)/(loan_amt)
+## Problem at Hand
 
-## Calculating the Probability of Default (PD)
+A significant portion of the world's population lacks a formal credit history, despite being active participants in the economy. Examples include street vendors and farmers in developing nations. The critical challenge is: **How do we assess their creditworthiness?** This project aims to address that question.
 
-NOTE: Dataset need to be changed containing only concise information in order to derive the the mu and sigma as the available dataset is leaning towards statistical estimation.
+### Key Areas Addressed by this Project
 
-- From the dataset,
-	- Separate the dataset based on account no
-	- Keep date, withdrawal_amt and deposit_amt
-	- Group data into daily and calculate daily withdrawals and daily deposits
-	- Calculate column Daily Net Change = Deposit - Withdrawal
-	- Calculate Rolling Standard Deviation of the Daily Net Change (volatility) in percentage (percentiles)
-	- Calculate the following columns
-		- Avg_Daily_Withdrawal
-		- Avg_Daily_Deposits
-		- Withdrawal_V_Deposit_Ratio
-		- Estimated_balance = data['Net Change'].cumsum()
-		- Daily_Growth_Rate = 
-			```
-				data['Previous Balance'] = data['Estimated Balance'].shift(1)
-				data['Growth Rate'] = data['Net Change'] / data['Previous Balance']
-			```
-	- Split the data into training (with validation set as well) and testing
-	- Normalise and stardise the dataset
-	- Calculate correlations and other statistics
-	- Drop irrelevant tables
+- Recognizing that creditworthiness evaluation is a holistic process—a single credit score does not define a person.
+- Assessing creditworthiness under the assumption that no formal credit history exists.
+- Incorporating stochastic evaluation methods for creditworthiness.
+- Researching and understanding innovative approaches to credit evaluation.
 
-### Estimating Volatility
+## Present Overview
 
-- Find and train model with optimised parameters
-- Save the model
+Grass is a financial analytics tool that calculates key loan parameters, assesses credit risk, and optimizes loan structures using statistical and machine learning techniques. The system implements models such as the Black-Scholes-Merton (BSM) model for estimating Probability of Default (PD), predicts Loss Given Default (LGD), computes credit scores, and optimizes loan installment plans.
 
-### Estimating Growth Rate
-- Find and train model with optimised parameters
-- Save the model
+For more insights on current methods for evaluating LGD and PD (which may evolve over time), please refer to the notebooks:
+- `lgd_EDA.ipynb` (LGD Exploratory Data Analysis)
+- `merton_params.ipynb` ("Black-Scholes-Merton Model For Estimation of Probability of Default")  
+both located in the `notebooks` directory.
 
-### Merton Model
+Currently, this project utilizes `scikit-learn` for its machine learning components, but it will soon transition to `pytorch` for more advanced modeling.
 
-- Put the parameters in the Merton Model
-- Get the Probability of Default
+## Installation and Setup
 
-## Calculate the Credit Score
+1. **Clone the Repository:**
 
-- Calculate PD and LGD with 100k as EAD
-- Calculate EL = PD * LGD * EAD
-- 
+   ```sh
+   git clone https://github.com/VoidsVictor/grass.git
+   cd grass
+   ```
+
+2. **Install Requirements:**
+
+   ```sh
+   pip install -r requirements.txt
+   ```
+
+3. **Generate an Appropriate Model:**
+
+   The random forest regressor model is preferred. Create the models directory and run the model generator:
+
+   ```sh
+   mkdir models
+   py model_generator/rf_lgd.py
+   ```
+
+## Usage
+
+### Running the Application
+
+Execute the main script:
+
+```bash
+python main.py
+```
+
+### Sample Usage in Code
+
+To calculate loan metrics for a borrower:
+
+```python
+from grass import calculate_loan_metrics
+
+borrower = {
+    "age": 30,
+    "gender": "M",
+    "annual_income": 50000,
+    "monthly_expenses": 2000,
+    "net_worth": 100000,
+    "old_dependents": 1,
+    "young_dependents": 2,
+    "occupants_count": 3,
+    "house_area": 1200
+}
+loan = {
+    "loan_amount": 20000,
+    "loan_tenure": 60
+}
+
+metrics = calculate_loan_metrics(borrower, loan, "./models/rf_lgd_pipeline.pkl")
+print(metrics)
+```
+
+## Upcoming Changes
+
+- Transition to a more realistic and comprehensive dataset.
+- In-depth analysis and feature engineering improvements.
+- Integration of more sophisticated and efficient machine learning algorithms (e.g., using PyTorch).
+
+## Notes
+
+1. Dataset is representative of rural India and may not be appropriate for other regions.
+2. `datasets/bank.csv` should contain, in the same format, bank statement of the respective entity.
+
+## License
+
+This project is licensed under the GNU General Public License v3.0. See the [LICENSE](./LICENSE) file for details.
