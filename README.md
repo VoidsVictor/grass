@@ -85,12 +85,6 @@ metrics = calculate_loan_metrics(borrower, loan, "./models/rf_lgd_pipeline.pkl")
 print(metrics)
 ```
 
-## Upcoming Changes
-
-- Transition to a more realistic and comprehensive dataset.
-- In-depth analysis and feature engineering improvements.
-- Integration of more sophisticated and efficient machine learning algorithms (e.g., using PyTorch).
-
 ## Notes
 
 1. Dataset is representative of rural India and may not be appropriate for other regions.
