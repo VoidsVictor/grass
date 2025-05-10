@@ -1,70 +1,60 @@
-# Grass - Holistic Creditworthiness Evaluation System
+# Grass - Creditworthiness Evaluation System
 
-> **Note:** This is an ongoing project. In its current stage, it is highly experimental and unstable. It should not be used in production environments. Open sourced components used in this project are governed by their respective licenses.
+> **Available for Consultation:** As the developer of this system, I'm available for freelance projects implementing similar financial technology solutions for businesses. [Contact me](#contact) to discuss your needs.
 
-## Problem at Hand
+## Project Overview
 
-A significant portion of the world's population lacks a formal credit history, despite being active participants in the economy. Examples include street vendors and farmers in developing nations. The critical challenge is: **How do we assess their creditworthiness?** This project aims to address that question.
+Grass is an advanced financial analytics tool that addresses one of the most significant challenges in global finance: **evaluating creditworthiness for the underbanked and those without formal credit histories**. Using sophisticated statistical models and machine learning techniques, this system provides holistic credit evaluation that goes beyond traditional credit scores.
 
-### Key Areas Addressed by this Project
+## Key Capabilities
 
-- Recognizing that creditworthiness evaluation is a holistic process—a single credit score does not define a person.
-- Assessing creditworthiness under the assumption that no formal credit history exists.
-- Incorporating stochastic evaluation methods for creditworthiness.
-- Researching and understanding innovative approaches to credit evaluation.
+- **Alternative Credit Scoring**: Evaluates creditworthiness without requiring traditional credit history
+- **Risk Assessment**: Implements the Black-Scholes-Merton model to calculate Probability of Default (PD)
+- **Loss Prediction**: Advanced algorithms to predict Loss Given Default (LGD)
+- **Loan Optimization**: AI-driven optimization of loan structures and installment plans
+- **Customizable Parameters**: Adaptable to various demographic and regional contexts
+- **Research-Backed**: Built on methodologies documented in published research
 
-## Present Overview
+## Technical Implementation
 
-Grass is a financial analytics tool that calculates key loan parameters, assesses credit risk, and optimizes loan structures using statistical and machine learning techniques. The system implements models such as the Black-Scholes-Merton (BSM) model for estimating Probability of Default (PD), predicts Loss Given Default (LGD), computes credit scores, and optimizes loan installment plans.
+The system currently leverages:
+- **Statistical Modeling**: Implementation of the Black-Scholes-Merton model
+- **Machine Learning**: Random forest regression models with scikit-learn
+- **Data Pipeline Architecture**: End-to-end processing from raw financial data to credit decisions
+- **Planned PyTorch Integration**: Transitioning to deep learning for enhanced prediction accuracy
 
-For more insights on current methods for evaluating LGD and PD (which may evolve over time), please refer to the notebooks:
-- `lgd_EDA.ipynb` (LGD Exploratory Data Analysis)
-- `merton_params.ipynb` ("Black-Scholes-Merton Model For Estimation of Probability of Default")  
-both located in the `notebooks` directory.
+## Real-World Applications
 
-Currently, this project utilizes `scikit-learn` for its machine learning components, but it will soon transition to `pytorch` for more advanced modeling.
+- **Microfinance Institutions**: Enable lending to clients without formal credit histories
+- **Rural Banking**: Expand financial inclusion in developing regions
+- **SME Lending**: Evaluate small business creditworthiness with limited financial records
+- **Alternative Lending Platforms**: Power new credit products for underserved markets
 
 ## Installation and Setup
 
 1. **Clone the Repository:**
-
    ```sh
-   git clone https://github.com/VoidsVictor/grass.git
+   git clone https://github.com/YourUsername/grass.git
    cd grass
    ```
 
 2. **Install Requirements:**
-
    ```sh
    pip install -r requirements.txt
    ```
 
-3. **Generate an Appropriate Model:**
-
-   The random forest regressor model is preferred. Create the models directory and run the model generator:
-
+3. **Generate the Model:**
    ```sh
    mkdir models
-   py model_generator/rf_lgd.py
+   python model_generator/rf_lgd.py
    ```
 
-## Usage
-
-### Running the Application
-
-Execute the main script:
-
-```bash
-python main.py
-```
-
-### Sample Usage in Code
-
-To calculate loan metrics for a borrower:
+## Implementation Example
 
 ```python
 from grass import calculate_loan_metrics
 
+# Example borrower with limited credit history
 borrower = {
     "age": 30,
     "gender": "M",
@@ -76,20 +66,44 @@ borrower = {
     "occupants_count": 3,
     "house_area": 1200
 }
+
 loan = {
     "loan_amount": 20000,
     "loan_tenure": 60
 }
 
+# Calculate comprehensive credit metrics
 metrics = calculate_loan_metrics(borrower, loan, "./models/rf_lgd_pipeline.pkl")
 print(metrics)
 ```
 
-## Notes
+## Research Foundation
 
-1. Dataset is representative of rural India and may not be appropriate for other regions.
-2. `datasets/bank.csv` should contain, in the same format, bank statement of the respective entity.
+This project applies methodologies explored in published research on alternative credit scoring. The implementation leverages stochastic processes to model financial risk in ways that traditional credit systems cannot.
+
+For more technical details on the models:
+- `notebooks/lgd_EDA.ipynb`: Loss Given Default analysis methodology
+- `notebooks/merton_params.ipynb`: Black-Scholes-Merton Model implementation for PD estimation
+
+## Customization Options
+
+The system can be customized for specific:
+- Regional markets
+- Demographic segments
+- Financial product types
+- Risk tolerance levels
+- Regulatory requirements
 
 ## License
 
 This project is licensed under the GNU General Public License v3.0. See the [LICENSE](./LICENSE) file for details.
+
+## Contact
+
+For consulting inquiries related to financial technology implementation, credit scoring systems, or custom adaptations of this technology, please reach out via:
+
+- Email: [sourjya.sarkar.pm@gmail.com]
+- GitHub: [https://github.com/VoidsVictor]
+- Website: [https://www.ssquare.cc/]
+
+*Specializing in machine learning for financial applications, alternative credit scoring, and financial inclusion technology.*
