@@ -1,10 +1,8 @@
 # Grass - Creditworthiness Evaluation System
 
-> **Available for Consultation:** As the developer of this system, I'm available for freelance projects implementing similar financial technology solutions for businesses. [Contact me](#contact) to discuss your needs.
-
 ## Project Overview
 
-Grass is an advanced financial analytics tool that addresses one of the most significant challenges in global finance: **evaluating creditworthiness for the underbanked and those without formal credit histories**. Using sophisticated statistical models and machine learning techniques, this system provides holistic credit evaluation that goes beyond traditional credit scores.
+Grass is an financial analytics tool that addresses one of the most significant challenges in global finance: **evaluating creditworthiness for the underbanked and those without formal credit histories**. Using statistical models and machine learning techniques, this system provides holistic credit evaluation that goes beyond traditional credit scores.
 
 ## Key Capabilities
 
