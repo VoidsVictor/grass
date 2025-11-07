@@ -11,8 +11,8 @@ Grass is an advanced financial analytics tool that addresses one of the most sig
 - **Alternative Credit Scoring**: Evaluates creditworthiness without requiring traditional credit history
 - **Risk Assessment**: Implements the Black-Scholes-Merton model to calculate Probability of Default (PD)
 - **Loss Prediction**: Advanced algorithms to predict Loss Given Default (LGD)
-- **Loan Optimization**: AI-driven optimization of loan structures and installment plans
-- **Customizable Parameters**: Adaptable to various demographic and regional contexts
+- **Loan Optimisation**: AI-driven optimisation of loan structures and installment plans
+- **Customisable Parameters**: Adaptable to various demographic and regional contexts
 - **Research-Backed**: Built on methodologies documented in published research
 
 ## Technical Implementation
@@ -85,9 +85,9 @@ For more technical details on the models:
 - `notebooks/lgd_EDA.ipynb`: Loss Given Default analysis methodology
 - `notebooks/merton_params.ipynb`: Black-Scholes-Merton Model implementation for PD estimation
 
-## Customization Options
+## Customisation Options
 
-The system can be customized for specific:
+The system can be customised for specific:
 - Regional markets
 - Demographic segments
 - Financial product types
@@ -97,13 +97,3 @@ The system can be customized for specific:
 ## License
 
 This project is licensed under the GNU General Public License v3.0. See the [LICENSE](./LICENSE) file for details.
-
-## Contact
-
-For consulting inquiries related to financial technology implementation, credit scoring systems, or custom adaptations of this technology, please reach out via:
-
-- Email: [sourjya.sarkar.pm@gmail.com]
-- GitHub: [https://github.com/VoidsVictor]
-- Website: [https://www.ssquare.cc/]
-
-*Specializing in machine learning for financial applications, alternative credit scoring, and financial inclusion technology.*
